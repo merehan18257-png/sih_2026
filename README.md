@@ -1,1 +1,3 @@
-# sih_2026
+Django
+requests
+python-dotenv
