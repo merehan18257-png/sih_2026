@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ABHA Details</title>
+
+    <style>
+        body {
+
+            margin: 0;
+
+            padding: 40px 20px;
+
+            background: #efe9dd;
+
+            font-family: Arial, sans-serif;
+
+            color: #20251f;
+
+        }
+
+        .container {
+
+            max-width: 750px;
+
+            margin: auto;
+
+            background: #f9f6ee;
+
+            padding: 35px;
+
+            border-radius: 12px;
+
+            border: 1px solid #c9c0ac;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.08);
+
+        }
+
+        h1 {
+
+            text-align: center;
+
+            font-family: Georgia, serif;
+
+            font-weight: 400;
+
+        }
+
+        .source {
+
+            text-align: center;
+
+            color: #5c6b4f;
+
+            margin-bottom: 30px;
+
+        }
+
+        .details {
+
+            display: grid;
+
+            gap: 12px;
+
+        }
+
+        .row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 15px;
+
+            background: white;
+
+            border-radius: 6px;
+
+            border: 1px solid #ddd;
+
+        }
+
+        .label {
+
+            font-weight: bold;
+
+        }
+
+        .value {
+
+            text-align: right;
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>
+            ABHA Patient Details
+        </h1>
+
+        <div class="source">
+            Details retrieved after authorized DigiLocker access
+        </div>
+
+
+        <div class="details">
+
+
+            <div class="row">
+
+                <span class="label">
+                    ABHA Number
+                </span>
+
+                <span class="value">
+                    {{ abha_number }}
+                </span>
+
+            </div>
+
+
+            <div class="row">
+
+                <span class="label">
+                    DigiLocker ID
+                </span>
+
+                <span class="value">
+                    {{ digilocker_id }}
+                </span>
+
+            </div>
+
+
+            <div class="row">
+
+                <span class="label">
+                    Name
+                </span>
+
+                <span class="value">
+                    {{ name }}
+                </span>
+
+            </div>
+
+
+            <div class="row">
+
+                <span class="label">
+                    Date of Birth
+                </span>
+
+                <span class="value">
+                    {{ dob }}
+                </span>
+
+            </div>
+
+
+            <div class="row">
+
+                <span class="label">
+                    Gender
+                </span>
+
+                <span class="value">
+                    {{ gender }}
+                </span>
+
+            </div>
+
+
+            <div class="row">
+
+                <span class="label">
+                    Mobile
+                </span>
+
+                <span class="value">
+                    {{ mobile }}
+                </span>
+
+            </div>
+
+
+            <div class="row">
+
+                <span class="label">
+                    Email
+                </span>
+
+                <span class="value">
+                    {{ email }}
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
