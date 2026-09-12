@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Patient Case-Taking Form</title>
+
+<style>
+:root {
+    --background: #f4f6f3;
+    --card: #ffffff;
+    --soft: #f8faf8;
+    --ink: #26332c;
+    --muted: #748078;
+    --line: #dce3de;
+    --accent: #5c6b4f;
+    --accent-dark: #46543c;
+    --accent-light: #e9eee6;
+    --danger: #b24a3a;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 40px 18px 60px;
+    font-family: Arial, sans-serif;
+    color: var(--ink);
+    background:
+        radial-gradient(circle at top left,
+        rgba(92,107,79,0.10),
+        transparent 30%),
+        radial-gradient(circle at bottom right,
+        rgba(92,107,79,0.07),
+        transparent 30%),
+        var(--background);
+}
+
+/* HEADER */
+
+.page-title {
+    max-width: 780px;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
+.icon {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #718166, #46543c);
+    color: white;
+    font-size: 23px;
+}
+
+.page-title h1 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.page-title p {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* CARD */
+
+.card {
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 34px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(40,55,45,0.08);
+}
+
+/* PAGE */
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* HEADINGS */
+
+h2 {
+    margin: 0 0 22px;
+    padding: 14px 17px;
+    border-radius: 10px;
+    background: linear-gradient(
+        90deg,
+        var(--accent-light),
+        #f7f9f7
+    );
+    border-left: 4px solid var(--accent);
+    color: #394b3e;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.section-title {
+    margin-top: 32px;
+}
+
+/* FORM */
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #3c4a42;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.required {
+    color: var(--danger);
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 13px 14px;
+    margin-bottom: 20px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: #fcfdfc;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    background: white;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(92,107,79,0.09);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* DASHAVIDHA */
+
+.field {
+    margin-bottom: 16px;
+    padding: 19px 19px 2px;
+    background: linear-gradient(135deg, #ffffff, var(--soft));
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+
+.meaning {
+    display: block;
+    margin: -2px 0 13px;
+    color: var(--muted);
+    font-size: 11.5px;
+    line-height: 1.55;
+}
+
+/* BUTTONS */
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.primary,
+.secondary {
+    padding: 13px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    border: none;
+}
+
+.primary {
+    background: linear-gradient(
+        135deg,
+        var(--accent),
+        var(--accent-dark)
+    );
+    color: white;
+}
+
+.secondary {
+    background: #e7efec;
+    color: var(--accent-dark);
+}
+
+.primary:hover,
+.secondary:hover {
+    transform: translateY(-1px);
+}
+
+/* SUMMARY */
+
+.summary-section {
+    margin-bottom: 25px;
+}
+
+.summary-card {
+    background: #f8faf8;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--line);
+}
+
+.summary-row:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-weight: 600;
+    color: #526158;
+}
+
+.summary-value {
+    text-align: right;
+    color: #26332c;
+    word-break: break-word;
+    max-width: 55%;
+}
+
+.success-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #e9f4ed;
+    border-left: 4px solid #4c805f;
+    color: #31583e;
+    display: none;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 28px 12px 40px;
+    }
+
+    .card {
+        padding: 24px 18px;
+    }
+
+    .page-title h1 {
+        font-size: 25px;
+    }
+
+    .summary-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .summary-value {
+        text-align: left;
+        max-width: 100%;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .primary,
+    .secondary {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     TITLE
+===================================================== -->
+
+<div class="page-title">
+
+    <div class="icon">✚</div>
+
+    <h1>Patient Case-Taking Form</h1>
+
+    <p>
+        Enter patient information and clinical assessment details
+        securely and accurately.
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     PAGE 1 - FORM
+===================================================== -->
+
+<div id="page1" class="page active">
+
+<div class="card">
+
+<form id="patientForm">
+
+<!-- BASIC DETAILS -->
+
+<h2>Basic Details</h2>
+
+<label>
+    Full Name <span class="required">*</span>
+</label>
+
+<input
+    type="text"
+    id="name"
+    placeholder="Enter patient's full name"
+    required
+>
+
+
+<label>
+    Age <span class="required">*</span>
+</label>
+
+<input
+    type="number"
+    id="age"
+    min="0"
+    max="120"
+    placeholder="Enter age"
+    required
+>
+
+
+<label>
+    Gender <span class="required">*</span>
+</label>
+
+<select id="gender" required>
+
+    <option value="">Select gender</option>
+
+    <option value="Male">Male</option>
+
+    <option value="Female">Female</option>
+
+    <option value="Other">Other</option>
+
+</select>
+
+
+<label>
+    Contact Number <span class="required">*</span>
+</label>
+
+<input
+    type="tel"
+    id="contact"
+    maxlength="10"
+    pattern="[0-9]{10}"
+    inputmode="numeric"
+    placeholder="Enter 10-digit mobile number"
+    required
+>
+
+
+<label>
+    Address <span class="required">*</span>
+</label>
+
+<textarea
+    id="address"
+    placeholder="Enter patient's residential address"
+    required
+></textarea>
+
+
+<!-- CHIEF COMPLAINT -->
+
+<h2 class="section-title">
+    Chief Complaint
+</h2>
+
+<label>
+    Primary Complaint <span class="required">*</span>
+</label>
+
+<textarea
+    id="complaint"
+    placeholder="Describe the patient's main complaint..."
+    required
+></textarea>
+
+
+<!-- DASHAVIDHA -->
+
+<h2 class="section-title">
+    Dashavidha Pariksha
+</h2>
+
+
+<!-- 1 PRAKRITI -->
+
+<div class="field">
+
+<label>
+    1. Prakriti <span class="required">*</span>
+</label>
+
+<span class="meaning">
+    Constitution — the individual's inborn dosha-based
+    body-mind type, fixed at birth.
+</span>
+
+<select id="prakriti" required>
+
+<option value="">Select Constitution</option>
+
+<option value="Vata (Air + Space)">
+    Vata (Air + Space)
+</option>
+
+<option value="Pitta (Fire + Water)">
+    Pitta (Fire + Water)
+</option>
+
+<option value="Kapha (Earth + Water)">
+    Kapha (Earth + Water)
+</option>
+
+<option value="Vata-Pitta">
+    Vata-Pitta
+</option>
+
+<option value="Pitta-Kapha">
+    Pitta-Kapha
+</option>
+
+<option value="Vata-Kapha">
+    Vata-Kapha
+</option>
+
+<option value="Tridoshaja">
+    Tridoshaja
+</option>
+
+</select>
+
+</div>
+
+
+<!-- 2 VIKRITI -->
+
+<div class="field">
+
+<label>
+    2. Vikriti <span class="required">*</span>
+</label>
+
+<span class="meaning">
+    Pathology — the current imbalance of doshas
+    associated with disease.
+</span>
+
+<select id="vikriti" required>
+
+<option value="">Select Pathological State</option>
+
+<option value="Vata Vikriti">
+    Vata Vikriti
+</option>
+
+<option value="Pitta Vikriti">
+    Pitta Vikriti
+</option>
+
+<option value="Kapha Vikriti">
+    Kapha Vikriti
+</option>
+
+<option value="Dwidoshaja">
+    Dwidoshaja
+</option>
+
+<option value="Sannipataja">
+    Sannipataja
+</option>
+
+<option value="No significant Vikriti">
+    No significant Vikriti
+</option>
+
+</select>
+
+</div>
+
+
+<!-- 3 SARA -->
+
+<div class="field">
+
+<label>
+    3. Sara <span class="required">*</span>
+</label>
+
+<span class="meaning">
+    Tissue quality — the degree of excellence
+    of the seven bodily tissues (dhatus).
+</span>
+
+<select id="sara" required>
+
+<option value="">Select Tissue Quality</option>
+
+<option value="Pravara (excellent)">
+    Pravara (excellent)
+</option>
+
+<option value="Madhyama (moderate)">
+    Madhyama (moderate)
+</option>
+
+<option value="Avara (poor)">
+    Avara (poor)
+</option>
+
+</select>
+
+</div>
+
+
+<!-- 4 SAMHANANA -->
+
+<div class="field">
+
+<label>
+    4. Samhanana <span class="required">*</span>
+</label>
+
+<span class="meaning">
+    Compactness — how well-knit and firm
+    the body frame and joints are.
+</span>
+
+<select id="samhanana" required>
+
+<option value="">Select Compactness</option>
+
+<option value="Pravara (well-compact, firm)">
+    Pravara (well-compact, firm)
+</option>
+
+<option value="Madhyama (moderate)">
+    Madhyama (moderate)
+</option>
+
+<option value="Avara (loose, poor)">
+    Avara (loose, poor)
+</option>
+
+</select>
+
+</div>
+
+
+<!-- 5 PRAMANA -->
+
+<div class="field">
+
+<label>
+    5. Pramana <span class="required">*</span>
+</label>
+
+<span class="meaning">
+    Measurements — the body's proportions
+    and dimensions relative to ideal standards.
+</span>
+
+<select id="pramana" required>
+
+<option value="">Select Measurement Status</option>
+
+<option value="Pravara (proportionate, adequate)">
+    Pravara (proportionate, adequate)
+</option>
+
+<option value="Madhyama (moderate)">
+    Madhyama (moderate)
+</option>
+
+<option value="Avara (disproportionate, inadequate)">
+    Avara (disproportionate, inadequate)
+</option>
+
+</select>
+
+</div>
+
+
+<!-- 6 SATMYA -->
+
+<div class="field">
+
+<label>
+    6. Satmya <span class="required">*</span>
+</label>
+
+<span class="meaning">
+    Adaptability — how well the person tolerates
+    and adjusts to foods, climates, and circumstances.
+</span>
+
+<select id="satmya" required>
+
+<option value="">Select Adaptability</option>
+
+<option value="Pravara (high adaptability)">
+    Pravara (high adaptability)
+</option>
+
+<option value="Madhyama (moderate adaptability)">
+    Madhyama (moderate adaptability)
+</option>
+
+<option value="Avara (low adaptability)">
+    Avara (low adaptability)
+</option>
+
+</select>
+
+</div>
+
+
+<!-- 7 SATVA -->
+
+<div class="field">
+
+<label>
+    7. Satva <span class="required">*</span>
+</label>
+
+<span class="meaning">
+    Mental strength — the clarity, courage,
+    and psychological resilience of the mind.
+</span>
+
+<select id="satva" required>
+
+<option value="">Select Mental Strength</option>
+
+<option value="Pravara (strong)">
+    Pravara (strong)
+</option>
+
+<option value="Madhyama (moderate)">
+    Madhyama (moderate)
+</option>
+
+<option value="Avara (weak)">
+    Avara (weak)
+</option>
+
+</select>
+
+</div>
+
+
+<!-- 8 AHARA SHAKTI -->
+
+<div class="field">
+
+<label>
+    8. Ahara Shakti <span class="required">*</span>
+</label>
+
+<span class="meaning">
+    Digestive capacity — the strength of Agni
+    and the amount of food one can properly digest.
+</span>
+
+<select id="ahara_shakti" required>
+
+<option value="">Select Digestive Capacity</option>
+
+<option value="Pravara (strong Agni)">
+    Pravara (strong Agni)
+</option>
+
+<option value="Madhyama (moderate Agni)">
+    Madhyama (moderate Agni)
+</option>
+
+<option value="Avara (weak Agni)">
+    Avara (weak Agni)
+</option>
+
+</select>
+
+</div>
+
+
+<!-- 9 VYAYAMA SHAKTI -->
+
+<div class="field">
+
+<label>
+    9. Vyayama Shakti <span class="required">*</span>
+</label>
+
+<span class="meaning">
+    Exercise capacity — the physical stamina
+    and tolerance for exertion.
+</span>
+
+<select id="vyayama_shakti" required>
+
+<option value="">Select Exercise Capacity</option>
+
+<option value="Pravara (high capacity)">
+    Pravara (high capacity)
+</option>
+
+<option value="Madhyama (moderate capacity)">
+    Madhyama (moderate capacity)
+</option>
+
+<option value="Avara (low capacity)">
+    Avara (low capacity)
+</option>
+
+</select>
+
+</div>
+
+
+<!-- 10 VAYA -->
+
+<div class="field">
+
+<label>
+    10. Vaya <span class="required">*</span>
+</label>
+
+<span class="meaning">
+    Age category — the patient's stage of life.
+</span>
+
+<select id="vaya" required>
+
+<option value="">Select Age Category</option>
+
+<option value="Bala (childhood: up to 16 years)">
+    Bala (childhood: up to 16 years)
+</option>
+
+<option value="Madhya (middle age: 16–70 years)">
+    Madhya (middle age: 16–70 years)
+</option>
+
+<option value="Vriddha (old age: above 70 years)">
+    Vriddha (old age: above 70 years)
+</option>
+
+</select>
+
+</div>
+
+
+<button
+    type="submit"
+    class="primary"
+    style="width:100%; margin-top:10px;"
+>
+    Continue to Patient Summary →
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     PAGE 2 - SUMMARY
+===================================================== -->
+
+<div id="page2" class="page">
+
+<div class="card">
+
+<h2>Patient Details</h2>
+
+<p style="color:#748078; margin-bottom:20px;">
+    All information entered in the patient case-taking form
+    is shown below.
+</p>
+
+
+<!-- BASIC DETAILS -->
+
+<div class="summary-section">
+
+<h2>Basic Details</h2>
+
+<div class="summary-card">
+
+<div class="summary-row">
+    <span class="summary-label">Full Name</span>
+    <span class="summary-value" id="showName"></span>
+</div>
+
+<div class="summary-row">
+    <span class="summary-label">Age</span>
+    <span class="summary-value" id="showAge"></span>
+</div>
+
+<div class="summary-row">
+    <span class="summary-label">Gender</span>
+    <span class="summary-value" id="showGender"></span>
+</div>
+
+<div class="summary-row">
+    <span class="summary-label">Contact Number</span>
+    <span class="summary-value" id="showContact"></span>
+</div>
+
+<div class="summary-row">
+    <span class="summary-label">Address</span>
+    <span class="summary-value" id="showAddress"></span>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- COMPLAINT -->
+
+<div class="summary-section">
+
+<h2>Chief Complaint</h2>
+
+<div class="summary-card">
+
+<div class="summary-row">
+
+<span class="summary-label">
+    Primary Complaint
+</span>
+
+<span class="summary-value" id="showComplaint"></span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- DASHAVIDHA -->
+
+<div class="summary-section">
+
+<h2>Dashavidha Pariksha</h2>
+
+<div class="summary-card">
+
+<div class="summary-row">
+    <span class="summary-label">1. Prakriti</span>
+    <span class="summary-value" id="showPrakriti"></span>
+</div>
+
+<div class="summary-row">
+    <span class="summary-label">2. Vikriti</span>
+    <span class="summary-value" id="showVikriti"></span>
+</div>
+
+<div class="summary-row">
+    <span class="summary-label">3. Sara</span>
+    <span class="summary-value" id="showSara"></span>
+</div>
+
+<div class="summary-row">
+    <span class="summary-label">4. Samhanana</span>
+    <span class="summary-value" id="showSamhanana"></span>
+</div>
+
+<div class="summary-row">
+    <span class="summary-label">5. Pramana</span>
+    <span class="summary-value" id="showPramana"></span>
+</div>
+
+<div class="summary-row">
+    <span class="summary-label">6. Satmya</span>
+    <span class="summary-value" id="showSatmya"></span>
+</div>
+
+<div class="summary-row">
+    <span class="summary-label">7. Satva</span>
+    <span class="summary-value" id="showSatva"></span>
+</div>
+
+<div class="summary-row">
+    <span class="summary-label">8. Ahara Shakti</span>
+    <span class="summary-value" id="showAhara"></span>
+</div>
+
+<div class="summary-row">
+    <span class="summary-label">9. Vyayama Shakti</span>
+    <span class="summary-value" id="showVyayama"></span>
+</div>
+
+<div class="summary-row">
+    <span class="summary-label">10. Vaya</span>
+    <span class="summary-value" id="showVaya"></span>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="success-message" id="successMessage">
+    ✓ Patient details have been successfully loaded.
+</div>
+
+
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+<button
+    type="button"
+    class="secondary"
+    onclick="goBack()"
+>
+    ← Edit Details
+</button>
+
+<button
+    type="button"
+    class="primary"
+    onclick="continueNext()"
+>
+    Continue →
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   FORM SUBMISSION
+===================================================== */
+
+document
+.getElementById("patientForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    /*
+       BASIC DETAILS
+    */
+
+    document.getElementById("showName").textContent =
+        document.getElementById("name").value;
+
+    document.getElementById("showAge").textContent =
+        document.getElementById("age").value;
+
+    document.getElementById("showGender").textContent =
+        document.getElementById("gender").value;
+
+    document.getElementById("showContact").textContent =
+        document.getElementById("contact").value;
+
+    document.getElementById("showAddress").textContent =
+        document.getElementById("address").value;
+
+
+    /*
+       CHIEF COMPLAINT
+    */
+
+    document.getElementById("showComplaint").textContent =
+        document.getElementById("complaint").value;
+
+
+    /*
+       DASHAVIDHA PARIKSHA
+    */
+
+    document.getElementById("showPrakriti").textContent =
+        document.getElementById("prakriti").value;
+
+    document.getElementById("showVikriti").textContent =
+        document.getElementById("vikriti").value;
+
+    document.getElementById("showSara").textContent =
+        document.getElementById("sara").value;
+
+    document.getElementById("showSamhanana").textContent =
+        document.getElementById("samhanana").value;
+
+    document.getElementById("showPramana").textContent =
+        document.getElementById("pramana").value;
+
+    document.getElementById("showSatmya").textContent =
+        document.getElementById("satmya").value;
+
+    document.getElementById("showSatva").textContent =
+        document.getElementById("satva").value;
+
+    document.getElementById("showAhara").textContent =
+        document.getElementById("ahara_shakti").value;
+
+    document.getElementById("showVyayama").textContent =
+        document.getElementById("vyayama_shakti").value;
+
+    document.getElementById("showVaya").textContent =
+        document.getElementById("vaya").value;
+
+
+    /*
+       PAGE CHANGE
+    */
+
+    document.getElementById("page1")
+        .classList.remove("active");
+
+    document.getElementById("page2")
+        .classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    document.getElementById("successMessage")
+        .style.display = "block";
+});
+
+
+/* =====================================================
+   GO BACK
+===================================================== */
+
+function goBack() {
+
+    document.getElementById("page2")
+        .classList.remove("active");
+
+    document.getElementById("page1")
+        .classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =====================================================
+   NEXT STEP
+===================================================== */
+
+function continueNext() {
+
+    alert(
+        "Patient details are ready for the next MediKiosk step."
+    );
+
+    /*
+       Yahan baad mein tum apna
+       ABHA verification / next page
+       connect kar sakte ho.
+
+       Example:
+
+       window.location.href = "abha.html";
+    */
+}
+
+</script>
+
+</body>
+</html>
+```
